@@ -8,7 +8,7 @@ function _init()
 	vidasmax=4
 	
 	vel=0
-
+	scor=7
 	especialat=3
 	especialmax=3
 	
@@ -30,9 +30,11 @@ function _init()
  
  estrelax={}
 	estrelay={}
+	estrelavel={}
 	for i=1,100 do
 		add(estrelax,flr(rnd(128)))
 		add(estrelay,flr(rnd(128)))
+		add(estrelavel, rnd(1.5)+0.5)
 	end
 
 
@@ -138,19 +140,24 @@ function _draw()
 end
 -->8
 function field()
-	for i=1,#estrelax do		
-		pset(estrelax[i],estrelay[i],7)
+	for i=1,#estrelax do
+		if estrelavel[i]>1 then
+			scor=7
+		elseif estrelavel[i]<1 then
+			scor=1
+		end
+		pset(estrelax[i],estrelay[i],scor)
 	end
 end
 
 function fieldanim()
 for i=1, #estrelay do
-	local estrelayat=estrelay[i]	
+	local estrelayat=estrelay[i]+estrelavel[i]
 	estrelayat+=1
-		if estrelayat > 128 then
-			estrelayat-=128	
-		end
-		estrelay[i]=estrelayat
+	if estrelayat > 128 then
+		estrelayat-=128	
+	end
+	estrelay[i]=estrelayat
 	end
 end
 __gfx__
